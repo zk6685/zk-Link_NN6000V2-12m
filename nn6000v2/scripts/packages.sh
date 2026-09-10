@@ -302,9 +302,9 @@ clone_dae() {
     clone_packages "dae/daed" \
         "$DAE_REPO" \
         "$TEMP_DIR" \
-        "dae daed luci-app-daede" \
+        "dae daed luci-app-daede vmlinux-btf" \
         "" \
-        "mkdir -p \"$DAE_DIR\" && rm -rf \"$DAE_DIR/dae\" \"$DAE_DIR/daed\" \"$DAE_DIR/luci-app-daede\" && mv \"$TEMP_DIR/dae\" \"$TEMP_DIR/daed\" \"$TEMP_DIR/luci-app-daede\" \"$DAE_DIR/\""
+        "mkdir -p \"$DAE_DIR\" && rm -rf \"$DAE_DIR/dae\" \"$DAE_DIR/daed\" \"$DAE_DIR/luci-app-daede\" \"$DAE_DIR/vmlinux-btf\" && mv \"$TEMP_DIR/dae\" \"$TEMP_DIR/daed\" \"$TEMP_DIR/luci-app-daede\" \"$TEMP_DIR/vmlinux-btf\" \"$DAE_DIR/\""
 
     rm -rf "$TEMP_DIR"
 }
