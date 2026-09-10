@@ -74,7 +74,8 @@ install_openwrt_packages() {
         luci-lib-docker luci-app-lucky luci-app-adguardhome luci-app-easytier \
         luci-app-oaf oaf open-app-filter \
         luci-app-diskman luci-app-dockerman luci-app-quickfile luci-app-passwall \
-        luci-app-tailscale-community
+        luci-app-tailscale-community \
+        daed luci-app-daede
 }
 
 clone_passwall() {
@@ -291,6 +292,21 @@ remove_attendedsysupgrade() {
             echo "Removed luci-app-attendedsysupgrade from $makefile"
         fi
     done
+}
+
+clone_dae() {
+    local DAE_REPO="${GITHUB_BASE}kenzok8/small-package.git"
+    local DAE_DIR="$OPENWRT_PACKAGES_DIR"
+    local TEMP_DIR="$OPENWRT_PACKAGES_DIR/dae-temp"
+
+    clone_packages "dae/daed" \
+        "$DAE_REPO" \
+        "$TEMP_DIR" \
+        "dae daed luci-app-daede" \
+        "" \
+        "mkdir -p \"$DAE_DIR\" && rm -rf \"$DAE_DIR/dae\" \"$DAE_DIR/daed\" \"$DAE_DIR/luci-app-daede\" && mv \"$TEMP_DIR/dae\" \"$TEMP_DIR/daed\" \"$TEMP_DIR/luci-app-daede\" \"$DAE_DIR/\""
+
+    rm -rf "$TEMP_DIR"
 }
 
 clone_luci_tailscale() {
