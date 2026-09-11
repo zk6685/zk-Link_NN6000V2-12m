@@ -128,6 +128,9 @@ modify_kernel_size
 cd "$BASE_PATH/../$BUILD_DIR"
 make defconfig
 
+# Ensure host LLVM toolchain for eBPF (bpf-headers/dae need clang; defconfig may drop implicit symbols)
+echo "CONFIG_USE_LLVM_HOST=y" >> .config
+
 if [[ $Build_Mod == "debug" ]]; then
     exit 0
 fi
@@ -176,6 +179,9 @@ if [[ "$Dev" != *"nowifi"* ]]; then
     
     cp -f "$CONFIG_FILE" .config
     make defconfig
+
+    # Ensure host LLVM toolchain for eBPF (bpf-headers/dae need clang; defconfig may drop implicit symbols)
+    echo "CONFIG_USE_LLVM_HOST=y" >> .config
     
     echo "编译无 WiFi 版本..."
     make -j$(($(nproc) + 1)) || make -j1 V=s
