@@ -72,6 +72,8 @@ jobs:
           # 步骤 3: 安装额外依赖
           sudo -E apt -yqq install dos2unix
           sudo -E apt -yqq install libfuse-dev
+          # LLVM/clang 供 eBPF (dae/daed bpf-headers) 使用
+          sudo -E apt -yqq install clang llvm
           
           # 步骤 4: 清理安装产生的缓存
           sudo -E apt -yqq autoremove --purge
