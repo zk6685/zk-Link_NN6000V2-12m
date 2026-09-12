@@ -1,4 +1,4 @@
-﻿#!/usr/bin/env bash
+#!/usr/bin/env bash
 
 GITHUB_BASE="https://github.com/"
 OPENWRT_PACKAGES_DIR="$BUILD_DIR/feeds/openwrt_packages"
@@ -302,9 +302,9 @@ clone_dae() {
     clone_packages "dae/daed" \
         "$DAE_REPO" \
         "$TEMP_DIR" \
-        "dae daed luci-app-daede vmlinux-btf filebrowser luci-app-filebrowser mosdns luci-app-mosdns openlist2 luci-app-openlist2 vlmcsd luci-app-vlmcsd luci-app-gecoosac luci-app-clouddrive2 v2ray-geodata" \
+        "dae daed luci-app-daede vmlinux-btf filebrowser luci-app-filebrowser mosdns luci-app-mosdns openlist2 luci-app-openlist2 vlmcsd luci-app-vlmcsd luci-app-gecoosac v2ray-geodata" \
         "" \
-        "mkdir -p \"$DAE_DIR\" && rm -rf \"$DAE_DIR/dae\" \"$DAE_DIR/daed\" \"$DAE_DIR/luci-app-daede\" \"$DAE_DIR/vmlinux-btf\" \"$DAE_DIR/filebrowser\" \"$DAE_DIR/luci-app-filebrowser\" \"$DAE_DIR/mosdns\" \"$DAE_DIR/luci-app-mosdns\" \"$DAE_DIR/openlist2\" \"$DAE_DIR/luci-app-openlist2\" \"$DAE_DIR/vlmcsd\" \"$DAE_DIR/luci-app-vlmcsd\" \"$DAE_DIR/luci-app-gecoosac\" \"$DAE_DIR/luci-app-clouddrive2\" && mv \"$TEMP_DIR/dae\" \"$TEMP_DIR/daed\" \"$TEMP_DIR/luci-app-daede\" \"$TEMP_DIR/vmlinux-btf\" \"$TEMP_DIR/filebrowser\" \"$TEMP_DIR/luci-app-filebrowser\" \"$TEMP_DIR/mosdns\" \"$TEMP_DIR/luci-app-mosdns\" \"$TEMP_DIR/openlist2\" \"$TEMP_DIR/luci-app-openlist2\" \"$TEMP_DIR/vlmcsd\" \"$TEMP_DIR/luci-app-vlmcsd\" \"$TEMP_DIR/luci-app-gecoosac\" \"$TEMP_DIR/luci-app-clouddrive2\" \"$TEMP_DIR/v2ray-geodata\" \"$DAE_DIR/\""
+        "mkdir -p \"$DAE_DIR\" && rm -rf \"$DAE_DIR/dae\" \"$DAE_DIR/daed\" \"$DAE_DIR/luci-app-daede\" \"$DAE_DIR/vmlinux-btf\" \"$DAE_DIR/filebrowser\" \"$DAE_DIR/luci-app-filebrowser\" \"$DAE_DIR/mosdns\" \"$DAE_DIR/luci-app-mosdns\" \"$DAE_DIR/openlist2\" \"$DAE_DIR/luci-app-openlist2\" \"$DAE_DIR/vlmcsd\" \"$DAE_DIR/luci-app-vlmcsd\" \"$DAE_DIR/luci-app-gecoosac\" && mv \"$TEMP_DIR/dae\" \"$TEMP_DIR/daed\" \"$TEMP_DIR/luci-app-daede\" \"$TEMP_DIR/vmlinux-btf\" \"$TEMP_DIR/filebrowser\" \"$TEMP_DIR/luci-app-filebrowser\" \"$TEMP_DIR/mosdns\" \"$TEMP_DIR/luci-app-mosdns\" \"$TEMP_DIR/openlist2\" \"$TEMP_DIR/luci-app-openlist2\" \"$TEMP_DIR/vlmcsd\" \"$TEMP_DIR/luci-app-vlmcsd\" \"$TEMP_DIR/luci-app-gecoosac\" \"$TEMP_DIR/v2ray-geodata\" \"$DAE_DIR/\""
 
     rm -rf "$TEMP_DIR"
 }
@@ -315,6 +315,21 @@ fix_mosdns_depends() {
         sed -i 's/+v2ray-geoip +v2ray-geosite/+v2ray-geodata/g' "$mf"
         echo "已修复 luci-app-mosdns 依赖（v2ray-geoip/geosite -> v2ray-geodata）。"
     fi
+}
+
+clone_clouddrive2() {
+    local CD2_REPO="${GITHUB_BASE}xuanranran/openwrt-clouddrive2.git"
+    local CD2_DIR="$OPENWRT_PACKAGES_DIR"
+    local TEMP_DIR="$OPENWRT_PACKAGES_DIR/clouddrive2-temp"
+
+    clone_packages "clouddrive2" \
+        "$CD2_REPO" \
+        "$TEMP_DIR" \
+        "clouddrive2 luci-app-clouddrive2" \
+        "master" \
+        "mkdir -p \"$CD2_DIR\" && rm -rf \"$CD2_DIR/clouddrive2\" \"$CD2_DIR/luci-app-clouddrive2\" && mv \"$TEMP_DIR/clouddrive2\" \"$TEMP_DIR/luci-app-clouddrive2\" \"$CD2_DIR/\""
+
+    rm -rf "$TEMP_DIR"
 }
 
 clone_luci_tailscale() {
