@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+﻿#!/usr/bin/env bash
 set -e
 set -o errexit
 set -o errtrace
@@ -34,6 +34,14 @@ source "$SCRIPT_DIR/packages.sh"
 source "$SCRIPT_DIR/system.sh"
 source "$SCRIPT_DIR/docker.sh"
 
+
+fix_tmpdir_socket() {
+    local rules_mk="$BUILD_DIR/rules.mk"
+    if [ -f "$rules_mk" ]; then
+        sed -i 's|^export TMPDIR:=$(TMP_DIR)$|export TMPDIR:=/tmp|' "$rules_mk"
+        echo "已修复 TMPDIR（/tmp），避免 Python 3.14 forkserver AF_UNIX socket 路径过长。"
+    fi
+}
 
 main() {
     clone_repo
@@ -72,6 +80,7 @@ main() {
     remove_attendedsysupgrade
     fix_rust_compile_error
     fix_kconfig_recursive_dependency
+    fix_tmpdir_socket
     set_nginx_default_config
     update_nginx_ubus_module
     fix_nginx_configure
