@@ -60,6 +60,7 @@ main() {
     clone_passwall
     clone_dae
     install_feeds
+    fix_mosdns_depends
     fix_smartdns_makefile
     update_docker_stack
     remove_tweaked_packages
