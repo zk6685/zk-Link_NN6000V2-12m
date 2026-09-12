@@ -130,6 +130,8 @@ jobs:
 
       - name: Build Firmware
         run: |
+          # 修复 Python 3.14 multiprocessing forkserver AF_UNIX socket 路径过长问题
+          export TMPDIR=/tmp
           # 设置 PPPoE 配置
           PPPOE_USER="${{ github.event.inputs.pppoe_username || '-' }}"
           PPPOE_PASS="${{ github.event.inputs.pppoe_password || '-' }}"
