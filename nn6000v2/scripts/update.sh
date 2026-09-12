@@ -1,4 +1,4 @@
-﻿#!/usr/bin/env bash
+#!/usr/bin/env bash
 set -e
 set -o errexit
 set -o errtrace
@@ -59,6 +59,7 @@ main() {
     clone_luci_tailscale
     clone_passwall
     clone_dae
+    clone_clouddrive2
     install_feeds
     fix_mosdns_depends
     fix_smartdns_makefile
