@@ -120,6 +120,127 @@ clone_lucky() {
     rm -rf "$LUCKY_TEMP"
 
     clone_packages "luci-app-lucky" \
+
+GITHUB_BASE="https://github.com/"
+OPENWRT_PACKAGES_DIR="$BUILD_DIR/feeds/openwrt_packages"
+
+update_golang() {
+    if [[ -d ./feeds/packages/lang/golang ]]; then
+        \rm -rf ./feeds/packages/lang/golang
+        if ! git clone --depth 1 -b $GOLANG_BRANCH $GOLANG_REPO ./feeds/packages/lang/golang; then
+            echo "错误：克隆 golang 仓库 $GOLANG_REPO 失败" >&2
+            exit 1
+        fi
+        echo "✓ golang 软件包更新完成"
+    fi
+}
+
+clone_packages() {
+    local name="$1"
+    local repo_url="$2"
+    local target_dir="$3"
+    local sparse_pattern="${4:-}"
+    local pre_cmd="${5:-}"
+    local post_cmd="${6:-}"
+    local move_from="${7:-}"
+    local move_to="${8:-}"
+    
+    if [ -n "$pre_cmd" ]; then
+        (cd "$BUILD_DIR" && eval "$pre_cmd") || return 1
+    fi
+    
+    rm -rf "$target_dir" 2>/dev/null || true
+    
+    if [ -n "$sparse_pattern" ]; then
+        if ! git clone --filter=blob:none --no-checkout "$repo_url" "$target_dir"; then
+            echo "错误：从 $repo_url 克隆 $name 仓库失败" >&2
+            exit 1
+        fi
+        
+        pushd "$target_dir" >/dev/null
+        git sparse-checkout init --cone
+        if ! git sparse-checkout set $sparse_pattern; then
+            echo "错误：稀疏检出 $sparse_pattern 失败" >&2
+            popd >/dev/null
+            return 1
+        fi
+        git checkout --quiet
+        popd >/dev/null
+        
+        if [ -n "$move_from" ] && [ -n "$move_to" ]; then
+            rm -rf "$move_to" 2>/dev/null || true
+            mv "$move_from" "$move_to" || return 1
+        fi
+    else
+        if ! git clone --depth=1 "$repo_url" "$target_dir"; then
+            echo "错误：从 $repo_url 克隆 $name 仓库失败" >&2
+            exit 1
+        fi
+    fi
+    
+    if [ -n "$post_cmd" ]; then
+        (cd "$BUILD_DIR" && eval "$post_cmd") || return 1
+    fi
+    
+    echo "✓ $name 克隆完成"
+}
+
+install_openwrt_packages() {
+    ./scripts/feeds install -p openwrt_packages -f \
+        xray-core sing-box trojan-plus naiveproxy shadowsocks-libev v2ray-plugin geoview \
+        microsocks tcping chinadns-ng dns2socks resolveip \
+        taskd luci-lib-xterm luci-lib-taskd \
+        luci-app-store quickstart luci-app-quickstart luci-app-istorex \
+        smartdns luci-app-smartdns luci-theme-argon luci-app-argon-config \
+        luci-lib-docker luci-app-lucky luci-app-adguardhome luci-app-easytier \
+        luci-app-oaf oaf open-app-filter \
+        luci-app-diskman luci-app-dockerman luci-app-quickfile luci-app-passwall \
+        luci-app-tailscale-community \
+        daed luci-app-daede
+}
+
+clone_passwall() {
+    local PASSWALL_LUCI_DIR="$OPENWRT_PACKAGES_DIR/luci-app-passwall"
+    local PASSWALL_PACKAGES_DIR="$OPENWRT_PACKAGES_DIR/passwall-packages"
+    local TEMP_DIR="$OPENWRT_PACKAGES_DIR/openwrt-passwall-temp"
+    local PASSWALL_PKGS_TEMP="$OPENWRT_PACKAGES_DIR/passwall-packages-temp"
+    
+    clone_packages "luci-app-passwall" \
+        "${GITHUB_BASE}Openwrt-Passwall/openwrt-passwall.git" \
+        "$TEMP_DIR" \
+        "" \
+        "" \
+        "rm -rf \"$PASSWALL_LUCI_DIR\" 2>/dev/null || true; mv \"$TEMP_DIR/luci-app-passwall\" \"$PASSWALL_LUCI_DIR\"; rm -rf \"$TEMP_DIR\""
+    
+    rm -rf "$PASSWALL_PACKAGES_DIR" 2>/dev/null || true
+    
+    clone_packages "passwall-packages" \
+        "${GITHUB_BASE}Openwrt-Passwall/openwrt-passwall-packages.git" \
+        "$PASSWALL_PKGS_TEMP" \
+        "" \
+        "" \
+        "for pkg in \"$PASSWALL_PKGS_TEMP\"/*; do if [ -d \"\$pkg\" ]; then pkg_name=\$(basename \"\$pkg\"); mv \"\$pkg\" \"$OPENWRT_PACKAGES_DIR/\$pkg_name\"; fi; done; rm -rf \"$PASSWALL_PKGS_TEMP\""
+}
+
+clone_lucky() {
+    local LUCKY_REPO="${GITHUB_BASE}gdy666/luci-app-lucky.git"
+    local LUCKY_DIR="$OPENWRT_PACKAGES_DIR/lucky"
+    local LUCI_APP_LUCKY_DIR="$OPENWRT_PACKAGES_DIR/luci-app-lucky"
+    local LUCKY_TEMP="$OPENWRT_PACKAGES_DIR/lucky-temp"
+    local LUCKI_APP_TEMP="$OPENWRT_PACKAGES_DIR/luci-app-lucky-temp"
+
+    clone_packages "lucky" \
+        "$LUCKY_REPO" \
+        "$LUCKY_TEMP" \
+        "lucky" \
+        "" \
+        "" \
+        "$LUCKY_TEMP/lucky" \
+        "$LUCKY_DIR"
+
+    rm -rf "$LUCKY_TEMP"
+
+    clone_packages "luci-app-lucky" \
         "$LUCKY_REPO" \
         "$LUCKI_APP_TEMP" \
         "luci-app-lucky" \
@@ -304,7 +425,7 @@ clone_dae() {
         "$TEMP_DIR" \
         "dae daed luci-app-daede vmlinux-btf filebrowser luci-app-filebrowser mosdns luci-app-mosdns openlist2 luci-app-openlist2 vlmcsd luci-app-vlmcsd luci-app-gecoosac v2ray-geodata" \
         "" \
-        "mkdir -p \"$DAE_DIR\" && rm -rf \"$DAE_DIR/dae\" \"$DAE_DIR/daed\" \"$DAE_DIR/luci-app-daede\" \"$DAE_DIR/vmlinux-btf\" \"$DAE_DIR/filebrowser\" \"$DAE_DIR/luci-app-filebrowser\" \"$DAE_DIR/mosdns\" \"$DAE_DIR/luci-app-mosdns\" \"$DAE_DIR/openlist2\" \"$DAE_DIR/luci-app-openlist2\" \"$DAE_DIR/vlmcsd\" \"$DAE_DIR/luci-app-vlmcsd\" \"$DAE_DIR/luci-app-gecoosac\" && mv \"$TEMP_DIR/dae\" \"$TEMP_DIR/daed\" \"$TEMP_DIR/luci-app-daede\" \"$TEMP_DIR/vmlinux-btf\" \"$TEMP_DIR/filebrowser\" \"$TEMP_DIR/luci-app-filebrowser\" \"$TEMP_DIR/mosdns\" \"$TEMP_DIR/luci-app-mosdns\" \"$TEMP_DIR/openlist2\" \"$TEMP_DIR/luci-app-openlist2\" \"$TEMP_DIR/vlmcsd\" \"$TEMP_DIR/luci-app-vlmcsd\" \"$TEMP_DIR/luci-app-gecoosac\" \"$TEMP_DIR/v2ray-geodata\" \"$DAE_DIR/\""
+        "mkdir -p \"$DAE_DIR\" && rm -rf \"$DAE_DIR/dae\" \"$DAE_DIR/daed\" \"$DAE_DIR/luci-app-daede\" \"$DAE_DIR/vmlinux-btf\" \"$DAE_DIR/filebrowser\" \"$DAE_DIR/luci-app-filebrowser\" \"$DAE_DIR/mosdns\" \"$DAE_DIR/luci-app-mosdns\" \"$DAE_DIR/openlist2\" \"$DAE_DIR/luci-app-openlist2\" \"$DAE_DIR/vlmcsd\" \"$DAE_DIR/luci-app-vlmcsd\" \"$DAE_DIR/luci-app-gecoosac\" \"$DAE_DIR/v2ray-geodata\" && mv \"$TEMP_DIR/dae\" \"$TEMP_DIR/daed\" \"$TEMP_DIR/luci-app-daede\" \"$TEMP_DIR/vmlinux-btf\" \"$TEMP_DIR/filebrowser\" \"$TEMP_DIR/luci-app-filebrowser\" \"$TEMP_DIR/mosdns\" \"$TEMP_DIR/luci-app-mosdns\" \"$TEMP_DIR/openlist2\" \"$TEMP_DIR/luci-app-openlist2\" \"$TEMP_DIR/vlmcsd\" \"$TEMP_DIR/luci-app-vlmcsd\" \"$TEMP_DIR/luci-app-gecoosac\" \"$TEMP_DIR/v2ray-geodata\" \"$DAE_DIR/\""
 
     rm -rf "$TEMP_DIR"
 }
