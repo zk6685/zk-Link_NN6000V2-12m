@@ -326,7 +326,7 @@ clone_clouddrive2() {
         "$CD2_REPO" \
         "$TEMP_DIR" \
         "clouddrive2 luci-app-clouddrive2" \
-        "master" \
+        "" \
         "mkdir -p \"$CD2_DIR\" && rm -rf \"$CD2_DIR/clouddrive2\" \"$CD2_DIR/luci-app-clouddrive2\" && mv \"$TEMP_DIR/clouddrive2\" \"$TEMP_DIR/luci-app-clouddrive2\" \"$CD2_DIR/\""
 
     rm -rf "$TEMP_DIR"
