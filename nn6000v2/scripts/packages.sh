@@ -75,7 +75,13 @@ install_openwrt_packages() {
         luci-app-oaf oaf open-app-filter \
         luci-app-diskman luci-app-dockerman luci-app-quickfile luci-app-passwall \
         luci-app-tailscale-community \
-        daed luci-app-daede
+        daed luci-app-daede \
+        filebrowser luci-app-filebrowser-go \
+        mosdns luci-app-mosdns \
+        openlist2 luci-app-openlist2 \
+        vlmcsd luci-app-vlmcsd \
+        luci-app-gecoosac v2ray-geodata \
+        clouddrive2 luci-app-clouddrive2
 }
 
 clone_passwall() {
@@ -302,9 +308,9 @@ clone_dae() {
     clone_packages "dae/daed" \
         "$DAE_REPO" \
         "$TEMP_DIR" \
-        "dae daed luci-app-daede vmlinux-btf filebrowser luci-app-filebrowser mosdns luci-app-mosdns openlist2 luci-app-openlist2 vlmcsd luci-app-vlmcsd luci-app-gecoosac v2ray-geodata" \
+        "dae daed luci-app-daede vmlinux-btf filebrowser luci-app-filebrowser-go mosdns luci-app-mosdns openlist2 luci-app-openlist2 vlmcsd luci-app-vlmcsd luci-app-gecoosac v2ray-geodata" \
         "" \
-        "mkdir -p \"$DAE_DIR\" && rm -rf \"$DAE_DIR/dae\" \"$DAE_DIR/daed\" \"$DAE_DIR/luci-app-daede\" \"$DAE_DIR/vmlinux-btf\" \"$DAE_DIR/filebrowser\" \"$DAE_DIR/luci-app-filebrowser\" \"$DAE_DIR/mosdns\" \"$DAE_DIR/luci-app-mosdns\" \"$DAE_DIR/openlist2\" \"$DAE_DIR/luci-app-openlist2\" \"$DAE_DIR/vlmcsd\" \"$DAE_DIR/luci-app-vlmcsd\" \"$DAE_DIR/luci-app-gecoosac\" \"$DAE_DIR/v2ray-geodata\" && mv \"$TEMP_DIR/dae\" \"$TEMP_DIR/daed\" \"$TEMP_DIR/luci-app-daede\" \"$TEMP_DIR/vmlinux-btf\" \"$TEMP_DIR/filebrowser\" \"$TEMP_DIR/luci-app-filebrowser\" \"$TEMP_DIR/mosdns\" \"$TEMP_DIR/luci-app-mosdns\" \"$TEMP_DIR/openlist2\" \"$TEMP_DIR/luci-app-openlist2\" \"$TEMP_DIR/vlmcsd\" \"$TEMP_DIR/luci-app-vlmcsd\" \"$TEMP_DIR/luci-app-gecoosac\" \"$TEMP_DIR/v2ray-geodata\" \"$DAE_DIR/\""
+        "mkdir -p \"$DAE_DIR\" && rm -rf \"$DAE_DIR/dae\" \"$DAE_DIR/daed\" \"$DAE_DIR/luci-app-daede\" \"$DAE_DIR/vmlinux-btf\" \"$DAE_DIR/filebrowser\" \"$DAE_DIR/luci-app-filebrowser-go\" \"$DAE_DIR/mosdns\" \"$DAE_DIR/luci-app-mosdns\" \"$DAE_DIR/openlist2\" \"$DAE_DIR/luci-app-openlist2\" \"$DAE_DIR/vlmcsd\" \"$DAE_DIR/luci-app-vlmcsd\" \"$DAE_DIR/luci-app-gecoosac\" \"$DAE_DIR/v2ray-geodata\" && mv \"$TEMP_DIR/dae\" \"$TEMP_DIR/daed\" \"$TEMP_DIR/luci-app-daede\" \"$TEMP_DIR/vmlinux-btf\" \"$TEMP_DIR/filebrowser\" \"$TEMP_DIR/luci-app-filebrowser-go\" \"$TEMP_DIR/mosdns\" \"$TEMP_DIR/luci-app-mosdns\" \"$TEMP_DIR/openlist2\" \"$TEMP_DIR/luci-app-openlist2\" \"$TEMP_DIR/vlmcsd\" \"$TEMP_DIR/luci-app-vlmcsd\" \"$TEMP_DIR/luci-app-gecoosac\" \"$TEMP_DIR/v2ray-geodata\" \"$DAE_DIR/\""
 
     rm -rf "$TEMP_DIR"
 }
