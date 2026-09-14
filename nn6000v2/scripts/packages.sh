@@ -318,8 +318,8 @@ clone_dae() {
 fix_mosdns_depends() {
     local mf="$OPENWRT_PACKAGES_DIR/luci-app-mosdns/Makefile"
     if [ -f "$mf" ]; then
-        sed -i 's/+v2ray-geoip +v2ray-geosite/+v2ray-geodata/g' "$mf"
-        echo "已修复 luci-app-mosdns 依赖（v2ray-geoip/geosite -> v2ray-geodata）。"
+        sed -i 's/+v2ray-geoip +v2ray-geosite +geo2txt/+v2ray-geodata/g' "$mf"
+        echo "已修复 luci-app-mosdns 依赖（v2ray-geoip/geosite/geo2txt -> v2ray-geodata）。"
     fi
 }
 
