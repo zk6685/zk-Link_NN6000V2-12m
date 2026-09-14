@@ -60,8 +60,8 @@ main() {
     clone_passwall
     clone_dae
     clone_clouddrive2
-    install_feeds
     fix_mosdns_depends
+    install_feeds
     fix_smartdns_makefile
     update_docker_stack
     remove_tweaked_packages
@@ -97,3 +97,4 @@ main() {
 }
 
 main "$@"
+
