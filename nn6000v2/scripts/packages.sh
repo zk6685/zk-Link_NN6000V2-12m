@@ -349,3 +349,17 @@ clone_luci_tailscale() {
         "" \
         "rm -rf \"$TARGET_DIR\" 2>/dev/null || true; mv \"$TEMP_DIR/luci-app-tailscale-community\" \"$TARGET_DIR\"; rm -rf \"$TEMP_DIR\""
 }
+# gecoosac 集客AC控制器 (laipeng668/luci-app-gecoosac, 替换 small-package 旧版)
+clone_gecoosac() {
+    local GECOO_REPO="${GITHUB_BASE}laipeng668/luci-app-gecoosac.git"
+    local TEMP_DIR="$OPENWRT_PACKAGES_DIR/gecoosac-temp"
+
+    clone_packages "gecoosac" \
+        "$GECOO_REPO" \
+        "$TEMP_DIR" \
+        "gecoosac luci-app-gecoosac" \
+        "" \
+        "rm -rf \"$OPENWRT_PACKAGES_DIR/gecoosac\" \"$OPENWRT_PACKAGES_DIR/luci-app-gecoosac\" && mv \"$TEMP_DIR/gecoosac\" \"$TEMP_DIR/luci-app-gecoosac\" \"$OPENWRT_PACKAGES_DIR/\""
+
+    rm -rf "$TEMP_DIR"
+}
