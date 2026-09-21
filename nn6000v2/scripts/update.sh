@@ -60,6 +60,7 @@ main() {
     clone_passwall
     clone_dae
     clone_clouddrive2
+    clone_gecoosac
     fix_mosdns_depends
     install_feeds
     fix_smartdns_makefile
