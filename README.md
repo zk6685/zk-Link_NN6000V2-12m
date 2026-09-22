@@ -24,32 +24,37 @@
 
 ***
 
-### 2.2 预装插件（20 个）
+### 2.2 预装插件（27 个）
 
-| 插件名称                     | 功能说明          |
-| ------------------------ | ------------- |
-| **luci-app-argon**       | Argon 主题      |
-| **luci-app-istorex**     | 应用商店          |
-| **luci-app-dockerman**   | Docker        |
-| **luci-app-adguardhome** | 广告过滤          |
-| **luci-app-diskman**     | 磁盘管理          |
-| **luci-app-smartdns**    | DNS 加速        |
-| **luci-app-autoreboot**  | 定时重启          |
-| **luci-app-sqm**         | QoS 智能队列      |
-| **luci-app-upnp**        | UPnP 端口映射     |
-| **luci-app-hd-idle**     | 硬盘休眠          |
-| **luci-app-p910nd**      | USB 打印机共享     |
-| **luci-app-easytier**    | EasyTier 虚拟组网 |
-| **luci-app-tailscale-community**    | Tailscale 虚拟组网 |
-| **luci-app-lucky**       | 多功能网络代理插件            |
-| **luci-app-oaf**         | 应用过滤-默认禁用        |
-| **luci-app-ttyd**        | 终端            |
-| **luci-app-quickfile**   | 文件管理          |
-| **luci-app-samba4**      | SMB 文件共享      |
-| **luci-app-pbr**         | 策略路由          |
-| **luci-app-passwall**    | 科学上网          |
-| **luci-app-daede**       | 科学上网 大鹅         |
-***
+| 插件名称 | 功能说明 |
+| --- | --- |
+| **luci-app-argon** | Argon 主题 |
+| **luci-app-istorex** | 应用商店 |
+| **luci-app-dockerman** | Docker 容器管理 |
+| **luci-app-adguardhome** | 广告过滤 |
+| **luci-app-diskman** | 磁盘管理 |
+| **luci-app-smartdns** | DNS 加速 |
+| **luci-app-autoreboot** | 定时重启 |
+| **luci-app-sqm** | QoS 智能队列 |
+| **luci-app-upnp** | UPnP 端口映射 |
+| **luci-app-hd-idle** | 硬盘休眠 |
+| **luci-app-p910nd** | USB 打印机共享 |
+| **luci-app-easytier** | EasyTier 虚拟组网 |
+| **luci-app-tailscale-community** | Tailscale 虚拟组网 |
+| **luci-app-lucky** | 多功能网络代理 |
+| **luci-app-oaf** | 应用过滤（默认禁用） |
+| **luci-app-ttyd** | Web 终端 |
+| **luci-app-quickfile** | 文件管理 |
+| **luci-app-samba4** | SMB 文件共享 |
+| **luci-app-pbr** | 策略路由 |
+| **luci-app-passwall** | 科学上网 |
+| **luci-app-daede** | 科学上网（大鹅） |
+| **luci-app-filebrowser-go** | File Browser 文件管理（Go 版） |
+| **luci-app-mosdns** | MosDNS DNS 分流 |
+| **luci-app-openlist2** | OpenList 网盘挂载 |
+| **luci-app-vlmcsd** | KMS 激活服务器 |
+| **luci-app-clouddrive2** | CloudDrive2 网盘挂载（二进制版） |
+| **luci-app-gecoosac** | 集客 AC 控制器 |***
 
 ## 3. 插件来源
 
