@@ -359,7 +359,7 @@ clone_gecoosac() {
         "$TEMP_DIR" \
         "gecoosac luci-app-gecoosac LICENSE" \
         "" \
-        "rm -rf \"$OPENWRT_PACKAGES_DIR/gecoosac\" \"$OPENWRT_PACKAGES_DIR/luci-app-gecoosac\" && mv \"$TEMP_DIR/gecoosac\" \"$TEMP_DIR/luci-app-gecoosac\" \"$OPENWRT_PACKAGES_DIR/\""
+"rm -rf \"$OPENWRT_PACKAGES_DIR/gecoosac\" \"$OPENWRT_PACKAGES_DIR/luci-app-gecoosac\" && mv \"$TEMP_DIR/gecoosac\" \"$TEMP_DIR/luci-app-gecoosac\" \"$TEMP_DIR/LICENSE\" \"$OPENWRT_PACKAGES_DIR/\"
 
     rm -rf "$TEMP_DIR"
 }
