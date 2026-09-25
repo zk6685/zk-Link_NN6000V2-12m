@@ -83,7 +83,8 @@ install_openwrt_packages() {
         luci-app-gecoosac v2ray-geodata \
 clouddrive2 luci-app-clouddrive2 \
         nft-fullcone nikki luci-app-nikki momo luci-app-momo \
-        luci-app-openclash luci-app-homeproxy
+        luci-app-openclash luci-app-homeproxy mihomo
+        
 }
 
 clone_passwall() {
@@ -371,9 +372,11 @@ clone_nft_fullcone() {
     local FULLCONE_DIR="$OPENWRT_PACKAGES_DIR/nft-fullcone"
     clone_packages "nft-fullcone" \
         "${GITHUB_BASE}friendlyarm/nft-fullcone.git" \
-        "$FULLCONE_DIR"
+        "$FULLCONE_DIR" \
+        "" \
+        "" \
+        "sed -i 's/ +kmod-nf-conntrack6//' \"$FULLCONE_DIR/Makefile\""
 }
-
 # nikki sing-box 透明代理 (nikkinikki-org/OpenWrt-nikki)
 clone_nikki() {
     local NIKKI_REPO="${GITHUB_BASE}nikkinikki-org/OpenWrt-nikki.git"
@@ -409,14 +412,26 @@ clone_openclash() {
         "$TEMP_DIR" \
         "luci-app-openclash" \
         "" \
-        "rm -rf \"$OPENWRT_PACKAGES_DIR/luci-app-openclash\" && mv \"$TEMP_DIR/luci-app-openclash\" \"$OPENWRT_PACKAGES_DIR/\""
+        "rm -rf \"$OPENWRT_PACKAGES_DIR/luci-app-openclash\" && mv \"$TEMP_DIR/luci-app-openclash\" \"$OPENWRT_PACKAGES_DIR/\" && mv \"$OPENWRT_PACKAGES_DIR/luci-app-openclash/po/zh-cn/openclash.zh-cn.po\" \"$OPENWRT_PACKAGES_DIR/luci-app-openclash/po/zh-cn/openclash.po\""
     rm -rf "$TEMP_DIR"
 }
-
 # HomeProxy (immortalwrt/homeproxy)
 clone_homeproxy() {
     local HP_DIR="$OPENWRT_PACKAGES_DIR/homeproxy"
     clone_packages "luci-app-homeproxy" \
         "${GITHUB_BASE}immortalwrt/homeproxy.git" \
         "$HP_DIR"
+}
+
+# mihomo Clash.Meta 内核 (kenzok8/small, nikki 依赖)
+clone_mihomo() {
+    local MIHOMO_REPO="${GITHUB_BASE}kenzok8/small.git"
+    local TEMP_DIR="$OPENWRT_PACKAGES_DIR/mihomo-temp"
+    clone_packages "mihomo" \
+        "$MIHOMO_REPO" \
+        "$TEMP_DIR" \
+        "mihomo" \
+        "" \
+        "rm -rf \"$OPENWRT_PACKAGES_DIR/mihomo\" && mv \"$TEMP_DIR/mihomo\" \"$OPENWRT_PACKAGES_DIR/\""
+    rm -rf "$TEMP_DIR"
 }
