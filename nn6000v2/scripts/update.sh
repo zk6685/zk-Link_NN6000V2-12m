@@ -60,7 +60,12 @@ main() {
     clone_passwall
     clone_dae
     clone_clouddrive2
-    clone_gecoosac
+clone_gecoosac
+    clone_nft_fullcone
+    clone_nikki
+    clone_momo
+    clone_openclash
+    clone_homeproxy
     fix_mosdns_depends
     install_feeds
     fix_smartdns_makefile
