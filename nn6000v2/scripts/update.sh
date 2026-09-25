@@ -65,7 +65,8 @@ clone_gecoosac
     clone_nikki
     clone_momo
     clone_openclash
-    clone_homeproxy
+clone_homeproxy
+    clone_mihomo
     fix_mosdns_depends
     install_feeds
     fix_smartdns_makefile
