@@ -81,7 +81,9 @@ install_openwrt_packages() {
         openlist2 luci-app-openlist2 \
         vlmcsd luci-app-vlmcsd \
         luci-app-gecoosac v2ray-geodata \
-        clouddrive2 luci-app-clouddrive2
+clouddrive2 luci-app-clouddrive2 \
+        nft-fullcone nikki luci-app-nikki momo luci-app-momo \
+        luci-app-openclash luci-app-homeproxy
 }
 
 clone_passwall() {
@@ -362,4 +364,59 @@ clone_gecoosac() {
         "rm -rf \"$OPENWRT_PACKAGES_DIR/gecoosac\" \"$OPENWRT_PACKAGES_DIR/luci-app-gecoosac\" && mv \"$TEMP_DIR/gecoosac\" \"$TEMP_DIR/luci-app-gecoosac\" \"$TEMP_DIR/LICENSE\" \"$OPENWRT_PACKAGES_DIR/\""
 
     rm -rf "$TEMP_DIR"
+}
+
+# nft-fullcone 内核模块 (friendlyarm/nft-fullcone, firewall4 fullcone expression 依赖)
+clone_nft_fullcone() {
+    local FULLCONE_DIR="$OPENWRT_PACKAGES_DIR/nft-fullcone"
+    clone_packages "nft-fullcone" \
+        "${GITHUB_BASE}friendlyarm/nft-fullcone.git" \
+        "$FULLCONE_DIR"
+}
+
+# nikki sing-box 透明代理 (nikkinikki-org/OpenWrt-nikki)
+clone_nikki() {
+    local NIKKI_REPO="${GITHUB_BASE}nikkinikki-org/OpenWrt-nikki.git"
+    local TEMP_DIR="$OPENWRT_PACKAGES_DIR/nikki-temp"
+    clone_packages "nikki" \
+        "$NIKKI_REPO" \
+        "$TEMP_DIR" \
+        "luci-app-nikki nikki" \
+        "" \
+        "rm -rf \"$OPENWRT_PACKAGES_DIR/luci-app-nikki\" \"$OPENWRT_PACKAGES_DIR/nikki\" && mv \"$TEMP_DIR/luci-app-nikki\" \"$TEMP_DIR/nikki\" \"$OPENWRT_PACKAGES_DIR/\""
+    rm -rf "$TEMP_DIR"
+}
+
+# momo sing-box TPROXY 代理 (nikkinikki-org/OpenWrt-momo)
+clone_momo() {
+    local MOMO_REPO="${GITHUB_BASE}nikkinikki-org/OpenWrt-momo.git"
+    local TEMP_DIR="$OPENWRT_PACKAGES_DIR/momo-temp"
+    clone_packages "momo" \
+        "$MOMO_REPO" \
+        "$TEMP_DIR" \
+        "luci-app-momo momo" \
+        "" \
+        "rm -rf \"$OPENWRT_PACKAGES_DIR/luci-app-momo\" \"$OPENWRT_PACKAGES_DIR/momo\" && mv \"$TEMP_DIR/luci-app-momo\" \"$TEMP_DIR/momo\" \"$OPENWRT_PACKAGES_DIR/\""
+    rm -rf "$TEMP_DIR"
+}
+
+# OpenClash (vernesong/OpenClash)
+clone_openclash() {
+    local OC_REPO="${GITHUB_BASE}vernesong/OpenClash.git"
+    local TEMP_DIR="$OPENWRT_PACKAGES_DIR/openclash-temp"
+    clone_packages "luci-app-openclash" \
+        "$OC_REPO" \
+        "$TEMP_DIR" \
+        "luci-app-openclash" \
+        "" \
+        "rm -rf \"$OPENWRT_PACKAGES_DIR/luci-app-openclash\" && mv \"$TEMP_DIR/luci-app-openclash\" \"$OPENWRT_PACKAGES_DIR/\""
+    rm -rf "$TEMP_DIR"
+}
+
+# HomeProxy (immortalwrt/homeproxy)
+clone_homeproxy() {
+    local HP_DIR="$OPENWRT_PACKAGES_DIR/homeproxy"
+    clone_packages "luci-app-homeproxy" \
+        "${GITHUB_BASE}immortalwrt/homeproxy.git" \
+        "$HP_DIR"
 }
