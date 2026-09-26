@@ -435,3 +435,29 @@ clone_mihomo() {
         "rm -rf \"$OPENWRT_PACKAGES_DIR/mihomo\" && mv \"$TEMP_DIR/mihomo\" \"$OPENWRT_PACKAGES_DIR/\""
     rm -rf "$TEMP_DIR"
 }
+# 修复 luci-i18n 语言包版本号为 0 的问题
+# 原因: sparse clone 后 mv 走了 .git, luci.mk 的 PKG_PO_VERSION 无法从 git 推导
+# 方案: 给每个 luci-app Makefile 在 include luci.mk 前注入 PKG_PO_VERSION
+fix_i18n_version() {
+    local mk ver
+    for mk in "$OPENWRT_PACKAGES_DIR"/*/Makefile; do
+        [ -f "$mk" ] || continue
+        grep -q 'include $(TOPDIR)/feeds/luci/luci.mk' "$mk" || continue
+        grep -q 'PKG_PO_VERSION' "$mk" && continue
+        case "$mk" in
+            */luci-app-filebrowser-go/Makefile) ver='2.63.23' ;;
+            */luci-app-vlmcsd/Makefile) ver='1.1' ;;
+            */luci-app-clouddrive2/Makefile) ver='1.0.16' ;;
+            */luci-app-gecoosac/Makefile) ver='2.2.20251015' ;;
+            *)
+                if grep -q '^PKG_VERSION:=' "$mk"; then
+                    ver='\$(PKG_VERSION)'
+                else
+                    continue
+                fi
+                ;;
+        esac
+        sed -i "/^include \$(TOPDIR)\/feeds\/luci\/luci.mk/i PKG_PO_VERSION:=$ver" "$mk"
+        echo "fix i18n ver: $mk -> PKG_PO_VERSION:=$ver"
+    done
+}
