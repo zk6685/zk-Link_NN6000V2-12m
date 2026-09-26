@@ -412,7 +412,7 @@ clone_openclash() {
         "$TEMP_DIR" \
         "luci-app-openclash" \
         "" \
-        "rm -rf \"$OPENWRT_PACKAGES_DIR/luci-app-openclash\" && mv \"$TEMP_DIR/luci-app-openclash\" \"$OPENWRT_PACKAGES_DIR/\" && mv \"$OPENWRT_PACKAGES_DIR/luci-app-openclash/po/zh-cn/openclash.zh-cn.po\" \"$OPENWRT_PACKAGES_DIR/luci-app-openclash/po/zh-cn/openclash.po\""
+        "rm -rf \"$OPENWRT_PACKAGES_DIR/luci-app-openclash\" && mv \"$TEMP_DIR/luci-app-openclash\" \"$OPENWRT_PACKAGES_DIR/\""
     rm -rf "$TEMP_DIR"
 }
 # HomeProxy (immortalwrt/homeproxy)
