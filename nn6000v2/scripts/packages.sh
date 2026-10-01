@@ -461,3 +461,22 @@ fix_i18n_version() {
         echo "fix i18n ver: $mk -> PKG_PO_VERSION:=$ver"
     done
 }
+
+install_extra_feed_deps() {
+    (cd "$BUILD_DIR" && ./scripts/feeds install -f luci-lib-jsonc kmod-ipt-conntrack kmod-ipt-nat)
+}
+
+clone_mini_diskmanager() {
+    local TEMP_DIR="$OPENWRT_PACKAGES_DIR/mini-diskmanager-temp"
+
+    clone_packages "luci-app-mini-diskmanager" \
+        "${GITHUB_BASE}4IceG/luci-app-mini-diskmanager.git" \
+        "$TEMP_DIR" \
+        "luci-app-mini-diskmanager" \
+        "" \
+        "" \
+        "$TEMP_DIR/luci-app-mini-diskmanager" \
+        "$OPENWRT_PACKAGES_DIR/luci-app-mini-diskmanager"
+
+    rm -rf "$TEMP_DIR"
+}
