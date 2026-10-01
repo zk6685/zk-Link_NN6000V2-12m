@@ -51,9 +51,11 @@ main() {
     update_golang
     clone_quickfile
     clone_lucky
-    clone_diskman
+    clone_mini_diskmanager
     clone_dockerman
     clone_adguardhome
+    install_extra_feed_deps
+    apply_passwall_tweaks
     clone_easytier
     clone_oaf
     clone_luci_tailscale
@@ -81,6 +83,7 @@ clone_homeproxy
     update_dnsmasq_conf
     change_cpuusage
     set_custom_task
+
     apply_passwall_tweaks
     update_nss_pbuf_performance
     update_nss_diag
