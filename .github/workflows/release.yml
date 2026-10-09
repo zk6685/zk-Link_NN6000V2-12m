@@ -87,7 +87,7 @@ jobs:
           echo "BUILD_DATE=$BUILD_DATE" >> $GITHUB_ENV
           echo "BUILD_SRC=${{ env.REPO_URL }}" >> $GITHUB_ENV
 
-- name: Setup Swap
+      - name: Setup Swap
         run: |
           sudo fallocate -l 8G /swapfile
           sudo chmod 600 /swapfile
