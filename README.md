@@ -41,6 +41,7 @@
 | **luci-app-hd-idle**     | 硬盘休眠          |
 | **luci-app-p910nd**      | USB 打印机共享     |
 | **luci-app-tailscale-community**    | Tailscale 虚拟组网 |
+| **luci-app-zerotier**    | ZeroTier 虚拟组网 |
 | **luci-app-lucky**       | 多功能网络代理插件            |
 | **luci-app-oaf**         | 应用过滤-默认禁用        |
 | **luci-app-ttyd**        | 终端            |
