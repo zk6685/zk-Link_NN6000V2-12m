@@ -18,6 +18,7 @@ env:
   REPO_BRANCH: main
   BUILD_DIR: imm-nss
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  TMPDIR: /home/runner/tmp
 
 jobs:
   build:
@@ -89,6 +90,7 @@ jobs:
 
       - name: Setup Swap
         run: |
+          mkdir -p /home/runner/tmp
           sudo swapoff -a || true
           sudo rm -f /swapfile
           sudo fallocate -l 8G /swapfile
