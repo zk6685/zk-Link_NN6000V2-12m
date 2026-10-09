@@ -18,7 +18,7 @@ env:
   REPO_BRANCH: main
   BUILD_DIR: imm-nss
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  TMPDIR: /home/runner/tmp
+  TMPDIR: /tmp
 
 jobs:
   build:

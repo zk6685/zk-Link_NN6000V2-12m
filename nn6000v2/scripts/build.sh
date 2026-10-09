@@ -126,6 +126,7 @@ modify_kernel_size() {
 modify_kernel_size
 
 cd "$BASE_PATH/../$BUILD_DIR"
+export TMPDIR=/tmp
 make defconfig
 
 if [[ $Build_Mod == "debug" ]]; then
