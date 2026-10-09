@@ -305,3 +305,60 @@ clone_luci_tailscale() {
         "" \
         "rm -rf \"$TARGET_DIR\" 2>/dev/null || true; mv \"$TEMP_DIR/luci-app-tailscale-community\" \"$TARGET_DIR\"; rm -rf \"$TEMP_DIR\""
 }
+# ===== zk6685 custom plugins =====
+
+clone_xuanranran_packages() {
+    local TEMP_DIR="$OPENWRT_PACKAGES_DIR/xuanranran-temp"
+    rm -rf "$TEMP_DIR" 2>/dev/null || true
+
+    clone_packages "xuanranran/openwrt-packages" \
+        "${GITHUB_BASE}xuanranran/openwrt-packages.git" \
+        "$TEMP_DIR" \
+        "luci-app-openlist2 luci-app-filebrowser-go luci-app-mosdns luci-app-clouddrive2"
+
+    for pkg in luci-app-openlist2 luci-app-filebrowser-go luci-app-mosdns luci-app-clouddrive2; do
+        if [ -d "$TEMP_DIR/$pkg" ]; then
+            rm -rf "$OPENWRT_PACKAGES_DIR/$pkg" 2>/dev/null || true
+            mv "$TEMP_DIR/$pkg" "$OPENWRT_PACKAGES_DIR/$pkg"
+            fix_apk_pkg_version "$OPENWRT_PACKAGES_DIR/$pkg/Makefile"
+        fi
+    done
+    rm -rf "$TEMP_DIR"
+    echo "✓ xuanranran packages 克隆完成"
+}
+
+clone_gecoosac() {
+    clone_packages "luci-app-gecoosac" \
+        "${GITHUB_BASE}laipeng668/luci-app-gecoosac.git" \
+        "$OPENWRT_PACKAGES_DIR/luci-app-gecoosac"
+}
+
+clone_daede() {
+    clone_packages "luci-app-daede" \
+        "${GITHUB_BASE}kenzok8/openwrt-daede.git" \
+        "$OPENWRT_PACKAGES_DIR/luci-app-daede"
+}
+
+clone_openclash() {
+    clone_packages "luci-app-openclash" \
+        "${GITHUB_BASE}vernesong/OpenClash.git" \
+        "$OPENWRT_PACKAGES_DIR/luci-app-openclash"
+}
+
+clone_nikki() {
+    local TEMP_DIR="$OPENWRT_PACKAGES_DIR/nikki-temp"
+    rm -rf "$TEMP_DIR" 2>/dev/null || true
+
+    clone_packages "OpenWrt-nikki" \
+        "${GITHUB_BASE}nikkinikki-org/OpenWrt-nikki.git" \
+        "$TEMP_DIR" \
+        "luci-app-nikki"
+
+    if [ -d "$TEMP_DIR/luci-app-nikki" ]; then
+        rm -rf "$OPENWRT_PACKAGES_DIR/luci-app-nikki" 2>/dev/null || true
+        mv "$TEMP_DIR/luci-app-nikki" "$OPENWRT_PACKAGES_DIR/luci-app-nikki"
+        fix_apk_pkg_version "$OPENWRT_PACKAGES_DIR/luci-app-nikki/Makefile"
+    fi
+    rm -rf "$TEMP_DIR"
+    echo "✓ nikki 克隆完成"
+}

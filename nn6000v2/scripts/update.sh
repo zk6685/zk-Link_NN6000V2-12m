@@ -52,6 +52,11 @@ main() {
     clone_oaf
     clone_luci_tailscale
     clone_singbox
+    clone_xuanranran_packages
+    clone_gecoosac
+    clone_daede
+    clone_openclash
+    clone_nikki
     install_feeds
     fix_smartdns_makefile
     update_docker_stack
