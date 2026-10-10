@@ -5,8 +5,9 @@
 - **参考脚本**：<https://github.com/ZqinKing/wrt_release.git>
 - **源码来源**：<https://github.com/VIKINGYFY/immortalwrt.git> - main
 - **设备支持**：Link\_NN6000V2，内核分区 12m（固件包含带 WiFi 和不带 WiFi 版本）
-- **固件发布**：[点击下载](https://github.com/wzdddyy/Link_NN6000V2/releases/latest)
+- **固件发布**：[点击下载](https://github.com/zk6685/zk_NN6000-12m/releases/latest)
 - **包 管 理**：2026-10-09 已经切换到APK，不在支持IPK。
+- **Build by**：zk6685
 
 ***
 
@@ -25,7 +26,7 @@
 
 ***
 
-### 2.2 预装插件（20 个）
+### 2.2 预装插件（32 个）
 
 | 插件名称                     | 功能说明          |
 | ------------------------ | ------------- |
@@ -49,19 +50,37 @@
 | **luci-app-samba4**      | SMB 文件共享      |
 | **luci-app-pbr**         | 策略路由          |
 | **luci-app-passwall**    | 科学上网          |
+| **luci-app-daed**        | eBPF 高性能透明代理（dae Web 面板版） |
+| **luci-app-nikki**       | Mihomo/Clash Meta 代理 |
+| **luci-app-openclash**   | OpenClash 代理  |
+| **luci-app-mosdns**      | DNS 分流转发      |
+| **luci-app-gecoosac**    | G EveryCoin ACL 控制器 |
+| **luci-app-mosquitto**   | MQTT 消息 Broker（含 SSL） |
+| **luci-app-vlmcsd**      | KMS 激活服务器    |
+| **luci-app-openlist2**   | OpenList 网盘挂载  |
+| **luci-app-filebrowser-go** | File Browser 文件管理（Go 版） |
+| **luci-app-clouddrive2** | CloudDrive2 网盘挂载（二进制版） |
+| **zram-swap**            | ZRAM 内存压缩交换  |
+| **luci-app-cpufreq**     | CPU 频率调节     |
 
 ***
 
 ## 3. 插件来源
 
-部分插件源自：<https://github.com/kenzok8/openwrt-packages>
+- 官方 feed：<https://github.com/VIKINGYFY/immortalwrt>
+- 部分插件源自：<https://github.com/kenzok8/openwrt-packages>
+- daed：<https://github.com/kenzok8/openwrt-daede>
+- gecoosac：<https://github.com/laipeng668/luci-app-gecoosac>
+- openlist2/filebrowser-go/mosdns/clouddrive2：<https://github.com/xuanranran/openwrt-packages>
+- nikki：<https://github.com/nikkinikki-org/OpenWrt-nikki>
+- openclash：<https://github.com/vernesong/OpenClash>
 
 ***
 
 ## 4. 项目结构
 
 ```
-Link_NN6000V2/
+zk_NN6000-12m/
 └── nn6000v2/              # 设备专用目录
     ├── configs/           # 固件配置文件目录
     ├── patches/           # 设备补丁目录
@@ -89,4 +108,3 @@ Link_NN6000V2/
 </div>
 
 ***
-
