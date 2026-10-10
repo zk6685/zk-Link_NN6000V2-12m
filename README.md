@@ -54,7 +54,7 @@
 | **luci-app-nikki**       | Mihomo/Clash Meta 代理 |
 | **luci-app-openclash**   | OpenClash 代理  |
 | **luci-app-mosdns**      | DNS 分流转发      |
-| **luci-app-gecoosac**    | G EveryCoin ACL 控制器 |
+| **luci-app-gecoosac**    | 集客无线 AC 控制器 |
 | **luci-app-mosquitto**   | MQTT 消息 Broker（含 SSL） |
 | **luci-app-vlmcsd**      | KMS 激活服务器    |
 | **luci-app-openlist2**   | OpenList 网盘挂载  |
