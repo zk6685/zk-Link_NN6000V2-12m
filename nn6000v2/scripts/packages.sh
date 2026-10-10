@@ -314,9 +314,9 @@ clone_xuanranran_packages() {
     clone_packages "xuanranran/openwrt-packages" \
         "${GITHUB_BASE}xuanranran/openwrt-packages.git" \
         "$TEMP_DIR" \
-        "luci-app-openlist2 luci-app-filebrowser-go luci-app-mosdns luci-app-clouddrive2"
+        "luci-app-filebrowser-go luci-app-mosdns luci-app-clouddrive2 mosdns clouddrive2"
 
-    for pkg in luci-app-openlist2 luci-app-filebrowser-go luci-app-mosdns luci-app-clouddrive2; do
+    for pkg in luci-app-filebrowser-go luci-app-mosdns luci-app-clouddrive2 mosdns clouddrive2; do
         if [ -d "$TEMP_DIR/$pkg" ]; then
             rm -rf "$OPENWRT_PACKAGES_DIR/$pkg" 2>/dev/null || true
             mv "$TEMP_DIR/$pkg" "$OPENWRT_PACKAGES_DIR/$pkg"
@@ -352,13 +352,15 @@ clone_nikki() {
     clone_packages "OpenWrt-nikki" \
         "${GITHUB_BASE}nikkinikki-org/OpenWrt-nikki.git" \
         "$TEMP_DIR" \
-        "luci-app-nikki"
+        "luci-app-nikki nikki"
 
-    if [ -d "$TEMP_DIR/luci-app-nikki" ]; then
-        rm -rf "$OPENWRT_PACKAGES_DIR/luci-app-nikki" 2>/dev/null || true
-        mv "$TEMP_DIR/luci-app-nikki" "$OPENWRT_PACKAGES_DIR/luci-app-nikki"
-        fix_apk_pkg_version "$OPENWRT_PACKAGES_DIR/luci-app-nikki/Makefile"
-    fi
+    for pkg in luci-app-nikki nikki; do
+        if [ -d "$TEMP_DIR/$pkg" ]; then
+            rm -rf "$OPENWRT_PACKAGES_DIR/$pkg" 2>/dev/null || true
+            mv "$TEMP_DIR/$pkg" "$OPENWRT_PACKAGES_DIR/$pkg"
+            fix_apk_pkg_version "$OPENWRT_PACKAGES_DIR/$pkg/Makefile"
+        fi
+    done
     rm -rf "$TEMP_DIR"
     echo "✓ nikki 克隆完成"
 }
